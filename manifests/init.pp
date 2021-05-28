@@ -14,7 +14,9 @@ class profile_nexus (
   Boolean                    $nexus_backup,
   Boolean                    $manage_sd_service       = lookup('manage_sd_service', Boolean, first, true),
 ) {
-  #include java
+  class { 'java':
+    package => 'java-1.8.0-openjdk',
+  }
 
   exec { $data_path:
     path    => $::path,
