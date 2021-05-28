@@ -14,19 +14,26 @@ class profile_nexus (
   Boolean                    $nexus_backup,
   Boolean                    $manage_sd_service       = lookup('manage_sd_service', Boolean, first, true),
 ) {
-  include java
+  #include java
 
-  profile_base::mount{ $data_path:
+  exec { $data_path:
+    path    => $::path,
+    command => "mkdir -p ${data_path}",
+    unless  => "test -d ${data_path}",
+  }
+  -> profile_base::mount{ $data_path:
     device => $data_device,
     mkdir  => false,
   }
 
   class { 'nexus':
-    version    => $version,
-    revision   => $revision,
-    nexus_root => $data_path,
-    nexus_host => $listen_address,
-    nexus_port => $port,
+    download_site => 'https://download.sonatype.com/nexus/3',
+    version       => $version,
+    revision      => $revision,
+    nexus_type    => 'unix',
+    nexus_root    => $data_path,
+    nexus_host    => $listen_address,
+    nexus_port    => $port,
   }
 
   if $manage_firewall_entry {
@@ -41,7 +48,7 @@ class profile_nexus (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => "http://${listen_address}:${port}",
+          http     => "http://${listen_address}:${port}/nexus",
           interval => '10s'
         }
       ],
@@ -55,5 +62,5 @@ class profile_nexus (
   }
 
   Class['java'] -> Class['nexus']
-  Class['profile_base::mount'] -> Class['nexus']
+  Profile_base::Mount[$data_path] -> Class['nexus']
 }

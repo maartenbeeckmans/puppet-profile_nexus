@@ -1,7 +1,7 @@
 ---
 profile_nexus::version: '3.30.1'
 profile_nexus::revision: '01'
-profile_nexus::data_path: '/srv/nexus'
+profile_nexus::data_path: '/opt/nexus'
 profile_nexus::data_device: '/dev/vdb'
 profile_nexus::listen_address: "%{facts.networking.ip}"
 profile_nexus::port: 8081
