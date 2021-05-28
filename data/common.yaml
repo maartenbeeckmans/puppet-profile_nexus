@@ -1,0 +1,12 @@
+---
+profile_nexus::version: '3.30.1'
+profile_nexus::revision: '01'
+profile_nexus::data_path: '/srv/nexus'
+profile_nexus::data_device: '/dev/vdb'
+profile_nexus::listen_address: "%{facts.networking.ip}"
+profile_nexus::port: 8081
+profile_nexus::manage_firewall_entry: true
+profile_nexus::sd_service_name: 'nexus'
+profile_nexus::sd_service_tags: []
+profile_nexus::nexus_backup: true
+...
