@@ -50,7 +50,7 @@ class profile_nexus (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => "http://${listen_address}:${port}/nexus",
+          http     => "http://${listen_address}:${port}",
           interval => '10s'
         }
       ],
