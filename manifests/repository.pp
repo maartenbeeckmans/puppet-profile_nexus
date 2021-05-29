@@ -44,15 +44,16 @@ define profile_nexus::repository (
     remote_auth_type               => 'none',
   }
 
-  if $manage_sd_service {
+
+  if $http_port and $manage_sd_service {
     consul::service { $sd_service_name:
       checks => [
         {
-          tcp      => "${listen_address}:${port}",
+          tcp      => "${listen_address}:${http_port}",
           interval => '10s'
         }
       ],
-      port   => $port,
+      port   => $http_port,
       tags   => $sd_service_tags,
     }
   }
