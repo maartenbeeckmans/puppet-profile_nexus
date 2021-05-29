@@ -8,6 +8,7 @@ define profile_nexus::repository (
   String                      $blobstore_name         = 'default',
   Optional[Integer]           $http_port              = undef,
   Optional[String]            $remote_url             = undef,
+  Optional[String]            $distribution           = undef,
   Boolean                     $manage_firewall_entry  = true,
   Boolean                     $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
   String                      $sd_service_name        = "nexus_repo_${title}",
@@ -42,6 +43,7 @@ define profile_nexus::repository (
     write_policy                   => $_write_policy,
     remote_url                     => $remote_url,
     remote_auth_type               => 'none',
+    distribution                   => $distribution,
   }
 
 
