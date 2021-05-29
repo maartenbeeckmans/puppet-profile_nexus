@@ -44,7 +44,7 @@ class profile_nexus (
     revision      => $revision,
     nexus_type    => 'unix',
     nexus_root    => $data_path,
-    nexus_host    => $listen_address,
+    nexus_host    => '0.0.0.0',
     nexus_port    => $port,
   }
 

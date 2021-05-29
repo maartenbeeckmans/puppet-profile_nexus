@@ -49,6 +49,14 @@ class profile_nexus::config (
     notify  => Service['nexus'],
   }
 
+  ini_setting { 'nexus.scripts.allowCreation':
+    ensure  => present,
+    path    => "${data_path}/sonatype-work/nexus3/etc/nexus.properties",
+    setting => 'nexus.scripts.allowCreation',
+    value   => true,
+    notify  => Service['nexus'],
+  }
+
   $_nexus3_rest_config = {
     'admin_username' => $admin_username,
     'admin_password' => $admin_password,
@@ -58,7 +66,7 @@ class profile_nexus::config (
   file { '/etc/puppetlabs/puppet/nexus3_rest.conf':
     ensure  => present,
     mode    => '0755',
-    content => epp("${module_name}/bin/nexus3_rest.conf.epp", $_nexus3_rest_config),
+    content => epp("${module_name}/nexus3_rest.conf.epp", $_nexus3_rest_config),
   }
 
   # set admin password
