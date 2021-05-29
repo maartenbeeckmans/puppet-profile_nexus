@@ -11,7 +11,17 @@ class profile_nexus (
   Boolean                    $manage_firewall_entry,
   String                     $sd_service_name,
   Array                      $sd_service_tags,
+  String                     $admin_username,
+  String                     $admin_password,
   Boolean                    $nexus_backup,
+  Hash                       $users,
+  Hash                       $user_defaults,
+  Hash                       $blobstores,
+  Hash                       $blobstore_defaults,
+  Hash                       $repositories,
+  Hash                       $repository_defaults,
+  Hash                       $repository_groups,
+  Hash                       $repository_group_defaults,
   Boolean                    $manage_sd_service       = lookup('manage_sd_service', Boolean, first, true),
 ) {
   class { 'java':
@@ -38,26 +48,8 @@ class profile_nexus (
     nexus_port    => $port,
   }
 
-  if $manage_firewall_entry {
-    firewall { "0${port} accept nexus":
-      dport  => $port,
-      proto  => 'tcp',
-      action => 'accept',
-    }
-  }
+  include profile_nexus::config
 
-  if $manage_sd_service {
-    consul::service { $sd_service_name:
-      checks => [
-        {
-          http     => "http://${listen_address}:${port}",
-          interval => '10s'
-        }
-      ],
-      port   => $port,
-      tags   => $sd_service_tags,
-    }
-  }
 
   if $nexus_backup {
     include profile_nexus::backup

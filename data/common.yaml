@@ -9,4 +9,13 @@ profile_nexus::manage_firewall_entry: true
 profile_nexus::sd_service_name: 'nexus'
 profile_nexus::sd_service_tags: []
 profile_nexus::nexus_backup: true
+profile_nexus::admin_username: 'admin'
+profile_nexus::users: {}
+profile_nexus::user_defaults: {}
+profile_nexus::blobstores: {}
+profile_nexus::blobstore_defaults: {}
+profile_nexus::repositories: {}
+profile_nexus::repository_defaults: {}
+profile_nexus::repository_groups: {}
+profile_nexus::repository_group_defaults: {}
 ...
