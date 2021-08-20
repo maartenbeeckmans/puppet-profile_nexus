@@ -1,5 +1,5 @@
 ---
-profile_nexus::version: '3.30.1'
+profile_nexus::version: '3.33.0'
 profile_nexus::revision: '01'
 profile_nexus::data_path: '/opt/nexus'
 profile_nexus::data_device: '/dev/vdb'
