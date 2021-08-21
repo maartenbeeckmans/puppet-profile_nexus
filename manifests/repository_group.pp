@@ -8,7 +8,7 @@ define profile_nexus::repository_group (
   Array[String]               $repositories           = [],
   Boolean                     $manage_firewall_entry  = true,
   Boolean                     $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
-  String                      $sd_service_name        = "nexus_repo_${title}",
+  String                      $sd_service_name        = "nexus-repo-group-${title}",
   Array                       $sd_service_tags        = [],
   Stdlib::Host                $listen_address         = $::profile_nexus::listen_address,
   Stdlib::Port::Unprivileged  $port                   = $::profile_nexus::port,
